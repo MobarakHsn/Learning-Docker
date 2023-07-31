@@ -1,0 +1,29 @@
+To run a docker image in a cli (Here new container will be created)- docker run <image-id>
+To run a stopped container which was already created- docker start <docker_id>
+To run a docker image in background detached from the terminal- docker run -d <image-id>
+To see the running containers- docker ps
+To stop a container- docker stop <the-container-id>
+To remove a container-First stop the container with the previous command and then run this command- docker rm <the-container-id>
+To see all the containers running and stopped- docker ps -a
+To run a docker in specified host port- docker run -p<host_port>:<container_port> <image_name>
+To see log of a docker id-docker logs <container_id>
+To create a container with a name specified- docker run -d -p6002:6379 --name <specified_name> <image_name>
+Interact with the container- docker exec -it <container_id> /bin/bash
+Or we can use this command if bash is not there-docker exec -it <container_id> /bin/sh
+
+
+Creating a network to communicate between multiple container- docker network create <network_name>
+Show existing networks- docker network ls
+
+ docker build -t getting-started .
+The docker build command uses the Dockerfile to build a new container image. You might have noticed that Docker downloaded a lot of “layers”. This is because you instructed the builder that you wanted to start from the node:18-alpine image. But, since you didn’t have that on your machine, Docker needed to download the image.
+After Docker downloaded the image, the instructions from the Dockerfile copied in your application and used yarn to install your application’s dependencies. The CMD directive specifies the default command to run when starting a container from this image.
+Finally, the -t flag tags your image. Think of this simply as a human-readable name for the final image. Since you named the image getting-started, you can refer to that image when you run a container.
+The . at the end of the docker build command tells Docker that it should look for the Dockerfile in the current directory.
+
+Now that you have an image, you can run the application in a container. To do so, you will use the docker run command.
+    1. Start your container using the docker run command and specify the name of the image you just created:
+       $ docker run -dp 127.0.0.1:3000:3000 getting-started
+       The -d flag (short for --detach) runs the container in the background. The -p flag (short for --publish) creates a port mapping between the host and the container. The -p flag take a string value in the format of HOST:CONTAINER, where HOST is the address on the host, and CONTAINER is the port on the container. The command shown here publishes the container’s port 3000 to 127.0.0.1:3000 (localhost:3000) on the host. Without the port mapping, you wouldn’t be able to access the application from the host.
+    2. After a few seconds, open your web browser to http://localhost:3000. You should see your app
+
